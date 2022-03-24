@@ -29,9 +29,27 @@ const Header = () => {
 const MainHeader = styled.div`
   padding: 0 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  padding: 24px 32px;
+
+  .${Logo} {
+    margin-right: auto;
+  }
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const NavLink = styled.a`
   font-size: 1.125rem;

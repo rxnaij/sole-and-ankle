@@ -36,6 +36,12 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          { 
+            variant !== 'default' && 
+            <Flag color={variant === 'new-release' ? COLORS.secondary : COLORS.primary}>
+              { variant === 'new-release' ? 'Just released!' : 'Sale' }
+            </Flag>
+          }
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -55,16 +61,21 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  max-width: 340px;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width: 100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  position: relative;
 `;
 
 const Name = styled.h3`
@@ -72,7 +83,11 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
@@ -82,5 +97,18 @@ const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
 `;
+
+const Flag = styled.span`
+  position: absolute;
+  background-color: ${props => props.color};
+  color: white;
+  font-weight: ${WEIGHTS.bold};
+
+  top: 12px;
+  right: -4px;
+
+  padding: 8px 9px;
+  border-radius: 2px;
+`
 
 export default ShoeCard;
