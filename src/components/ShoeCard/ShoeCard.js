@@ -31,25 +31,38 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  /* Two solutions are provided for the flags: one with how I'd do it originally,
+  and the other (the un-commented one) using composition
+  */
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          { 
+          {/* { 
             variant !== 'default' && 
             <Flag color={variant === 'new-release' ? COLORS.secondary : COLORS.primary}>
               { variant === 'new-release' ? 'Just released!' : 'Sale' }
             </Flag>
-          }
+          } */}
+          { variant === 'new-release' && <NewFlag>Just released!</NewFlag> }
+          { variant === 'on-sale' && <SaleFlag>Sale</SaleFlag> }
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price 
+            isOnSale={variant === 'on-sale'}
+            style={{
+              '--color': variant === 'on-sale' ? COLORS.gray['700'] : COLORS.gray['900']
+            }}
+          >
+            {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          { variant === 'on-sale' && <SalePrice>{formatPrice(salePrice)}</SalePrice> }
         </Row>
       </Wrapper>
     </Link>
@@ -62,7 +75,6 @@ const Link = styled.a`
 `;
 
 const Wrapper = styled.article`
-  max-width: 340px;
 `;
 
 const ImageWrapper = styled.div`
@@ -76,6 +88,8 @@ const Image = styled.img`
 const Row = styled.div`
   font-size: 1rem;
   position: relative;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -84,9 +98,8 @@ const Name = styled.h3`
 `;
 
 const Price = styled.span`
-  position: absolute;
-  top: 0;
-  right: 0;
+  text-decoration: ${props => props.isOnSale && 'line-through'};
+  color: var(--color);
 `;
 
 const ColorInfo = styled.p`
@@ -109,6 +122,14 @@ const Flag = styled.span`
 
   padding: 8px 9px;
   border-radius: 2px;
+`
+
+const NewFlag = styled(Flag)`
+  background-color: ${COLORS.secondary}
+`
+
+const SaleFlag = styled(Flag)`
+  background-color: ${COLORS.primary}
 `
 
 export default ShoeCard;

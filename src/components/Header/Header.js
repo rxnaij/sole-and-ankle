@@ -12,7 +12,9 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <Logo />
+        <Side>
+          <Logo />
+        </Side>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -21,11 +23,17 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
+        <Side />
       </MainHeader>
     </header>
   );
 };
 
+
+/* 
+  Note the use of align-items: baseline; to align the logo with the navigation.
+  Also, to *optically vertical-align* the content, we a bit of extra top padding
+*/  
 const MainHeader = styled.div`
   padding: 0 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
@@ -33,22 +41,30 @@ const MainHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: baseline;
 
   padding: 24px 32px;
+  padding-top: 26px;
 
   .${Logo} {
     margin-right: auto;
   }
 `;
 
+/* 
+  This <Side> element indirectly centers the Nav.
+  It evenly takes up the extra space on each side of the Nav.
+*/
+const Side = styled.div`
+  flex: 1;
+`
+
 const Nav = styled.nav`
   display: flex;
   flex-direction: row;
   gap: 48px;
 
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 48px;
 `;
 
 const NavLink = styled.a`

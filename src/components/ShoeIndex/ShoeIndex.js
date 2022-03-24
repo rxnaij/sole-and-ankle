@@ -42,10 +42,13 @@ const ShoeIndex = ({ sortId, setSortId }) => {
   );
 };
 
+
+/* align-items: baseline works across containers, and it looks very neat */
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
+  align-items: baseline;
   gap: 32px;
 `;
 
@@ -61,7 +64,7 @@ const Header = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: baseline;
 `;
 
 const Title = styled.h2`
